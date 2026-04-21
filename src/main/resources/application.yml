@@ -1,4 +1,8 @@
 spring:
+  mvc:
+    problemdatails:
+      enable: true
+
   datasource:
     url: jdbc:h2:mem:testdb
     username: chhean
