@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: chhean
+    password: spring
+  h2:
+    console:
+      enable: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
