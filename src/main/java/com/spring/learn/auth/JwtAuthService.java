@@ -51,7 +51,7 @@ public class JwtAuthService {
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractallClaims(token);
+        final Claims claims = extractallClaimsxt(token);
         return claimsResolver.apply(claims);
     }
 
