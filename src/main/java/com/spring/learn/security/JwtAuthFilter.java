@@ -10,27 +10,21 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.spring.learn.auth.JwtAuthService;
-
 import io.micrometer.common.lang.NonNull;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtAuthService jwtAuthService;
+    private final JwtService  jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override
     public void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
+            @NonNull filterChain filterChain
     ) throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
@@ -45,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         try {
 
-            userEmail = jwtAuthService.extractUsername(jwt);
+            userEmail = jwtService.extractUsername(jwt);
 
         } catch (Exception e) {
 
@@ -60,7 +54,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             UserDetails userDetails = 
                 this.userDetailsService.loadUserByUsername(userEmail);
 
-            if (jwtAuthService.isTokenValid(jwt, userDetails)) {
+            if (jwtService.isTokenValid(jwt, userDetails)) {
 
                 UsernamePasswordAuthenticationToken authToken = 
                     new UsernamePasswordAuthenticationToken(

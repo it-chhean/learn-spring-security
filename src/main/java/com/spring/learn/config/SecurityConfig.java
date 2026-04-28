@@ -18,6 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.spring.learn.security.JwtAuthFilter;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -26,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final jwtAuthFilter jwtAuthFilter;
+    private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
     private final CorsConfigurationSource corseConfigurationSource;
 
@@ -35,6 +37,7 @@ public class SecurityConfig {
         "/h2-console/**",
         "/actuator/health"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -50,7 +53,9 @@ public class SecurityConfig {
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
+
             .authenticationProvider(authenticationProvider())
+
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 
             .headers(headers -> headers
@@ -60,6 +65,8 @@ public class SecurityConfig {
         return http.build();
     }
 
+
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -68,11 +75,13 @@ public class SecurityConfig {
         return provider;
     }
 
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
