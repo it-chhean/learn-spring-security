@@ -17,10 +17,10 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "auths")
+@Builder
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) 
 @AllArgsConstructor
-@Builder
 public class Auth {
 
     @Id
