@@ -1,23 +1,34 @@
 spring:
-
-  mvc:
-    problemdatails:
-      enable: true
+  application:
+    name: jwt-security
 
   datasource:
     url: jdbc:h2:mem:spring_security_tbl
     driver-class-name: org.h2.Driver
-    username: chhean
+    username: sa
     password: spring
 
   h2:
     console:
-      enable: true
       path: /h2-console
+      enabled: true
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
 
 server:
   port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRY_MS:3600000}
