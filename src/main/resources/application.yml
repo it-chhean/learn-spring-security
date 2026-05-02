@@ -1,15 +1,23 @@
 spring:
+
   mvc:
     problemdatails:
       enable: true
 
   datasource:
     url: jdbc:h2:mem:spring_security_tbl
+    driver-class-name: org.h2.Driver
     username: chhean
     password: spring
+
   h2:
     console:
       enable: true
+      path: /h2-console
+
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+server:
+  port: 8080
