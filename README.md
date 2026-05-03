@@ -22,31 +22,25 @@ role-based access control, and method-level security.
 ## Folder structure
 
 ```
-src/main/java/com/yourapp/
-├── config/
-│   ├── SecurityConfig.java          # SecurityFilterChain, BCrypt, AuthManager
-│   └── CorsConfig.java              # Allowed origins, methods, headers
-├── security/
-│   ├── JwtService.java              # Generate & validate JWT tokens
-│   ├── JwtAuthFilter.java           # OncePerRequestFilter — reads Bearer token
-│   └── CustomUserDetailsService.java
-├── domain/user/
-│   ├── User.java                    # Entity + UserDetails implementation
-│   ├── Role.java                    # Enum: USER, ADMIN, MODERATOR
-│   └── UserRepository.java
-├── auth/
-│   ├── AuthController.java          # POST /api/auth/register & /login
-│   ├── AuthService.java
-│   └── AuthDtos.java                # RegisterRequest, AuthRequest, AuthResponse
-├── item/
-│   ├── ItemController.java          # @PreAuthorize per endpoint
-│   ├── ItemService.java
-│   ├── Item.java
-│   ├── ItemRepository.java
-│   ├── ItemDto.java
-│   └── ItemSecurity.java            # Custom SpEL bean for ownership checks
-└── exception/
-    └── GlobalExceptionHandler.java  # 400 / 401 / 403 / 404 / 500 JSON responses
+src/main/java/com/example/security/
+├── controller/
+│   └── AuthController.java          
+├── dto/
+│   ├── RegisterRequest.java         
+│   └── RegisterResponse.java        
+├── entity/
+│   ├── Role.java
+│   └── UserEntity.java
+├── exception/
+│   ├── GlobalExceptionHandler.java  
+│   ├── UserAlreadyExistsException.java 
+│   └── RoleNotFoundException.java   
+├── repository/
+│   ├── UserRepository.java
+│   └── RoleRepository.java          
+└── service/
+    ├── AuthService.java             
+    └── AuthServiceImpl.java 
 ```
 
 ---
@@ -54,10 +48,6 @@ src/main/java/com/yourapp/
 ## Quick start
 
 ### 1. Set the JWT secret environment variable
-
-```bash
-export JWT_SECRET=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-```
 
 Generate your own for production:
 ```bash
@@ -67,7 +57,7 @@ openssl rand -base64 64
 ### 2. Run the application
 
 ```bash
-./mvnw spring-boot:run
+./gradlew bootRun
 ```
 
 App starts on `http://localhost:8080`.
@@ -75,7 +65,7 @@ App starts on `http://localhost:8080`.
 ### 3. Run tests
 
 ```bash
-./mvnw test
+./gradlew test
 ```
 
 ---
