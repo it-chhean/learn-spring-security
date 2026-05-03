@@ -10,5 +10,4 @@ public class LearnSpringSecurityApplication {
         SpringApplication.run(LearnSpringSecurityApplication.class, args);
     }
 
-
 }
