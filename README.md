@@ -11,11 +11,11 @@ role-based access control, and method-level security.
 | Layer       | Technology                          |
 |-------------|-------------------------------------|
 | Framework   | Spring Boot 3.2 / Spring Security 6 |
-| Auth        | JWT (jjwt 0.12.5, HS256)            |
+| Auth        | JWT (jjwt 0.12.6, HS256)            |
 | Database    | H2 in-memory (swap for PostgreSQL)  |
 | ORM         | Spring Data JPA / Hibernate         |
 | Java        | 21                                  |
-| Build       | Maven                               |
+| Build       | gradle                               |
 
 ---
 
